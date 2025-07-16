@@ -17,7 +17,7 @@ Thumbs.db
 /backend-springboot/.vscode/
 **/hs_err_pid*.log
 
-# Maven
+# Maven Wrapper
 /backend-springboot/.mvn/
 /backend-springboot/mvnw
 /backend-springboot/mvnw.cmd
@@ -28,7 +28,7 @@ Thumbs.db
 /backend-springboot/gradlew
 /backend-springboot/gradlew.bat
 
-# Liquibase backup
+# Liquibase backup files
 /backend-springboot/src/main/resources/db/changelog/*.backup
 
 # === Frontend: Angular ===
@@ -40,11 +40,6 @@ Thumbs.db
 /frontend-angular/npm-debug.log*
 /frontend-angular/yarn-debug.log*
 /frontend-angular/yarn-error.log*
-
-# === Docker ===
-**/.dockerignore
-**/Dockerfile
-docker-compose.override.yml
 
 # === Logs ===
 *.log
