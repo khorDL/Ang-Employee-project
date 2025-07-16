@@ -1,0 +1,59 @@
+# === Global ===
+.DS_Store
+Thumbs.db
+*.log
+*.env
+*.bak
+*.swp
+
+# === Backend: Spring Boot ===
+/backend-springboot/target/
+/backend-springboot/out/
+/backend-springboot/.idea/
+/backend-springboot/.classpath
+/backend-springboot/.project
+/backend-springboot/.settings/
+/backend-springboot/*.iml
+/backend-springboot/.vscode/
+**/hs_err_pid*.log
+
+# Maven
+/backend-springboot/.mvn/
+/backend-springboot/mvnw
+/backend-springboot/mvnw.cmd
+
+# Gradle (if used)
+/backend-springboot/.gradle/
+/backend-springboot/build/
+/backend-springboot/gradlew
+/backend-springboot/gradlew.bat
+
+# Liquibase backup
+/backend-springboot/src/main/resources/db/changelog/*.backup
+
+# === Frontend: Angular ===
+/frontend-angular/node_modules/
+/frontend-angular/dist/
+/frontend-angular/.angular/
+/frontend-angular/.vscode/
+/frontend-angular/.env
+/frontend-angular/npm-debug.log*
+/frontend-angular/yarn-debug.log*
+/frontend-angular/yarn-error.log*
+
+# === Docker ===
+**/.dockerignore
+**/Dockerfile
+docker-compose.override.yml
+
+# === Logs ===
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# === OS-specific ===
+ehthumbs.db
+Icon?
+.Spotlight-V100
+.Trashes
