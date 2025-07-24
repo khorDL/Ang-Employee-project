@@ -1,15 +1,138 @@
-<h3>View Employee Details</h3>
-<div>
-    <div>
-        <label><b>First Name :</b></label>
-        <span>{{ employee.firstName }}</span>
-    </div>
-    <div>
-        <label><b>Last Name :</b></label>
-        <span>{{ employee.lastName }}</span>
-    </div>
-    <div>
-        <label><b>Email :</b></label>
-        <span>{{ employee.email }}</span>
-    </div>
-</div>
+<!-- Employee Details Page -->
+<section class="page-container" role="main" aria-labelledby="page-title">
+  
+  <!-- Loading State -->
+  <div class="loading-overlay" *ngIf="isLoading" aria-live="polite">
+    <mat-spinner diameter="40" aria-label="Loading employee details"></mat-spinner>
+    <p class="loading-text">Loading employee details...</p>
+  </div>
+
+  <!-- Employee Not Found -->
+  <div class="error-container" *ngIf="!employee && !isLoading" role="alert">
+    <mat-card class="error-card">
+      <mat-card-content>
+        <div class="error-content">
+          <mat-icon class="error-icon">error_outline</mat-icon>
+          <h2>Employee Not Found</h2>
+          <p>The requested employee could not be found.</p>
+          <button mat-raised-button routerLink="/employees" class="btn-primary">
+            <mat-icon>list</mat-icon>
+            Back to Employee List
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Employee Details Card -->
+  <mat-card class="details-card" *ngIf="employee && !isLoading">
+    
+    <!-- Card Header -->
+    <mat-card-header class="card-header details-header">
+      <div mat-card-avatar class="avatar-icon" aria-hidden="true">
+        <mat-icon>person</mat-icon>
+      </div>
+      <mat-card-title id="page-title" class="card-title">
+        Employee Details
+      </mat-card-title>
+      <mat-card-subtitle class="card-subtitle">
+        Complete employee information
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <!-- Employee Information -->
+    <mat-card-content class="card-content">
+      <dl class="info-grid" role="list">
+        
+        <!-- Employee ID -->
+        <div class="info-row" role="listitem">
+          <div class="info-icon" aria-hidden="true">
+            <mat-icon>badge</mat-icon>
+          </div>
+          <div class="info-content">
+            <dt class="info-label">Employee ID</dt>
+            <dd class="info-value" [attr.aria-label]="'Employee ID: ' + (employee.id || 'Not available')">
+              {{ employee.id || 'N/A' }}
+            </dd>
+          </div>
+        </div>
+
+        <!-- First Name -->
+        <div class="info-row" role="listitem">
+          <div class="info-icon" aria-hidden="true">
+            <mat-icon>person</mat-icon>
+          </div>
+          <div class="info-content">
+            <dt class="info-label">First Name</dt>
+            <dd class="info-value" [attr.aria-label]="'First name: ' + (employee.firstName || 'Not available')">
+              {{ employee.firstName || 'N/A' }}
+            </dd>
+          </div>
+        </div>
+
+        <!-- Last Name -->
+        <div class="info-row" role="listitem">
+          <div class="info-icon" aria-hidden="true">
+            <mat-icon>person_outline</mat-icon>
+          </div>
+          <div class="info-content">
+            <dt class="info-label">Last Name</dt>
+            <dd class="info-value" [attr.aria-label]="'Last name: ' + (employee.lastName || 'Not available')">
+              {{ employee.lastName || 'N/A' }}
+            </dd>
+          </div>
+        </div>
+
+        <!-- Email Address -->
+        <div class="info-row" role="listitem">
+          <div class="info-icon" aria-hidden="true">
+            <mat-icon>email</mat-icon>
+          </div>
+          <div class="info-content">
+            <dt class="info-label">Email Address</dt>
+            <dd class="info-value email-value" [attr.aria-label]="'Email address: ' + (employee.email || 'Not available')">
+              <a *ngIf="employee.email" 
+                 [href]="'mailto:' + employee.email" 
+                 class="email-link"
+                 [attr.aria-label]="'Send email to ' + employee.email">
+                {{ employee.email }}
+              </a>
+              <span *ngIf="!employee.email">N/A</span>
+            </dd>
+          </div>
+        </div>
+
+      </dl>
+    </mat-card-content>
+
+    <!-- Action Buttons -->
+    <mat-card-actions class="card-actions" role="group" aria-label="Employee actions">
+      
+      <button mat-raised-button 
+              class="btn-primary edit-btn"
+              [routerLink]="['/update-employee', employee.id]"
+              [attr.aria-label]="'Edit employee ' + (employee.firstName || '') + ' ' + (employee.lastName || '')">
+        <mat-icon aria-hidden="true">edit</mat-icon>
+        <span>Edit Employee</span>
+      </button>
+      
+      <button mat-stroked-button 
+              class="btn-secondary"
+              routerLink="/employees"
+              aria-label="Return to employee list">
+        <mat-icon aria-hidden="true">list</mat-icon>
+        <span>Back to List</span>
+      </button>
+      
+      <button mat-stroked-button 
+              class="btn-danger delete-btn"
+              (click)="deleteEmployee()"
+              [attr.aria-label]="'Delete employee ' + (employee.firstName || '') + ' ' + (employee.lastName || '')">
+        <mat-icon aria-hidden="true">delete</mat-icon>
+        <span>Delete</span>
+      </button>
+      
+    </mat-card-actions>
+
+  </mat-card>
+</section>

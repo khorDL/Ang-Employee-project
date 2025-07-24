@@ -1,4 +1,4 @@
-package com.example.angularEmp.exception;
+package com.example.backendSpringboot.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

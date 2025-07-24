@@ -1,24 +1,285 @@
-<h2>Employee List</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-      <th>Actions</th> <!-- Added Actions column header -->
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let employee of employees">
-      <td>{{ employee.firstName }}</td>
-      <td>{{ employee.lastName }}</td>
-      <td>{{ employee.email }}</td>
-      <td>
-        <!-- Action buttons (Edit, Delete, etc.) -->
-        <button class="btn btn-info" (click)="updateEmployee(employee.id)">Edit</button>
-        <button class="btn btn-danger" (click)="deleteEmployee(employee.id)">Delete</button>
-        <button class="btn btn-primary" (click)="employeeDetails(employee.id)">Details</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<!-- Employee List Page -->
+<section class="list-container" role="main" aria-labelledby="page-title">
+
+  <header class="list-header">
+    <mat-card class="list-header-card employee-list-header" elevation="2">
+      <mat-card-content>
+        <div class="list-header-content">
+          <div class="list-title-section">
+            <h1 id="page-title" class="list-page-title">
+              <mat-icon class="list-title-icon" aria-hidden="true">people</mat-icon>
+              Employee Management
+            </h1>
+            <p class="list-page-subtitle">Manage your organization's workforce efficiently</p>
+          </div>
+          <div class="list-action-section">
+            <button mat-fab 
+                    color="primary" 
+                    routerLink="/create-employee"
+                    matTooltip="Add New Employee"
+                    matTooltipPosition="left"
+                    class="list-fab-button add-employee-fab"
+                    aria-label="Add new employee">
+              <mat-icon aria-hidden="true">add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </header>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="isLoading" role="status" aria-live="polite">
+    <mat-card class="loading-card" elevation="1">
+      <mat-card-content class="loading-content">
+        <mat-spinner diameter="50" color="primary"></mat-spinner>
+        <h3 class="loading-title">Loading Employees...</h3>
+        <p class="loading-subtitle">Please wait while we fetch the employee data</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Main Content -->
+  <main *ngIf="!isLoading">
+    
+    <!-- Search Bar -->
+    <section class="search-section" *ngIf="employees.length > 0">
+      <mat-card class="search-card" elevation="2">
+        <mat-card-content>
+          <div class="search-container">
+            <mat-form-field class="search-field" appearance="outline">
+              <mat-label>Search employees...</mat-label>
+              <input matInput 
+                     [(ngModel)]="searchTerm"
+                     (input)="onSearchChange()"
+                     placeholder="Search by name or email"
+                     aria-label="Search employees">
+              <mat-icon matSuffix>search</mat-icon>
+              <button matSuffix 
+                      mat-icon-button 
+                      *ngIf="searchTerm" 
+                      (click)="clearSearch()"
+                      matTooltip="Clear search"
+                      aria-label="Clear search">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </mat-form-field>
+            <div class="search-results-info" *ngIf="searchTerm">
+              <span class="results-count">{{ dataSource.filteredData.length }}</span>
+              <span class="results-text">{{ dataSource.filteredData.length === 1 ? 'employee found' : 'employees found' }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </section>
+    
+    <!-- Empty State -->
+    <div class="empty-state-container" *ngIf="employees.length === 0">
+      <mat-card class="empty-state-card" elevation="1">
+        <mat-card-content class="empty-state-content">
+          <div class="empty-state-icon-container">
+            <mat-icon class="empty-state-icon" aria-hidden="true">people_outline</mat-icon>
+          </div>
+          <h2 class="empty-state-title">No Employees Found</h2>
+          <p class="empty-state-message">
+            Your employee directory is empty. Start building your team by adding your first employee.
+          </p>
+          <div class="empty-state-actions">
+            <button mat-raised-button 
+                    color="primary" 
+                    size="large"
+                    routerLink="/create-employee"
+                    class="empty-state-btn">
+              <mat-icon aria-hidden="true">person_add</mat-icon>
+              Add First Employee
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Employee Table -->
+    <mat-card class="table-card" elevation="3" *ngIf="employees.length > 0">
+      
+      <!-- Table Header -->
+      <mat-card-header>
+        <div class="table-header-content">
+          <div class="table-title-section">
+            <mat-card-title class="table-title">
+              <mat-icon aria-hidden="true" class="table-title-icon">list_alt</mat-icon>
+              Employee Directory
+            </mat-card-title>
+            <mat-card-subtitle class="employee-stats">
+              <span class="employee-count-badge">{{ dataSource.filteredData.length }}</span>
+              <span class="employee-count-text">{{ dataSource.filteredData.length === 1 ? 'employee' : 'employees' }} 
+                <span *ngIf="searchTerm">found</span><span *ngIf="!searchTerm">total</span>
+              </span>
+            </mat-card-subtitle>
+          </div>
+          <div class="table-actions">
+            <button mat-stroked-button 
+                    color="primary"
+                    (click)="refreshEmployees()"
+                    matTooltip="Refresh employee list"
+                    class="refresh-btn">
+              <mat-icon aria-hidden="true">refresh</mat-icon>
+              Refresh
+            </button>
+          </div>
+        </div>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="table-wrapper">
+          <table mat-table 
+                 [dataSource]="dataSource" 
+                 class="employee-table" 
+                 matSort
+                 aria-label="Employee directory table">
+            
+            <!-- First Name Column -->
+            <ng-container matColumnDef="firstName">
+              <th mat-header-cell 
+                  *matHeaderCellDef 
+                  mat-sort-header 
+                  class="header-cell"
+                  scope="col">
+                <div class="header-content">
+                  <mat-icon class="column-icon" aria-hidden="true">badge</mat-icon>
+                  <span class="header-text">First Name</span>
+                </div>
+              </th>
+              <td mat-cell 
+                  *matCellDef="let employee; let i = index" 
+                  class="data-cell">
+                <div class="cell-content">
+                  <div class="avatar-container">
+                    <div class="employee-avatar">
+                      {{ employee.firstName.charAt(0).toUpperCase() }}
+                    </div>
+                  </div>
+                  <span class="employee-name">{{ employee.firstName }}</span>
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Last Name Column -->
+            <ng-container matColumnDef="lastName">
+              <th mat-header-cell 
+                  *matHeaderCellDef 
+                  mat-sort-header 
+                  class="header-cell"
+                  scope="col">
+                <div class="header-content">
+                  <mat-icon class="column-icon" aria-hidden="true">person_outline</mat-icon>
+                  <span class="header-text">Last Name</span>
+                </div>
+              </th>
+              <td mat-cell 
+                  *matCellDef="let employee; let i = index" 
+                  class="data-cell">
+                <div class="cell-content">
+                  <span class="employee-name">{{ employee.lastName }}</span>
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Email Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell 
+                  *matHeaderCellDef 
+                  mat-sort-header 
+                  class="header-cell"
+                  scope="col">
+                <div class="header-content">
+                  <mat-icon class="column-icon" aria-hidden="true">email</mat-icon>
+                  <span class="header-text">Email Address</span>
+                </div>
+              </th>
+              <td mat-cell 
+                  *matCellDef="let employee; let i = index" 
+                  class="data-cell">
+                <div class="cell-content">
+                  <a [href]="'mailto:' + employee.email" 
+                     class="email-link"
+                     [attr.aria-label]="'Send email to ' + employee.firstName + ' ' + employee.lastName"
+                     matTooltip="Send email">
+                    <mat-icon class="email-icon" aria-hidden="true">alternate_email</mat-icon>
+                    <span class="email-text">{{ employee.email }}</span>
+                  </a>
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell 
+                  *matHeaderCellDef 
+                  class="header-cell"
+                  scope="col">
+                <span class="header-text">Actions</span>
+              </th>
+              <td mat-cell 
+                  *matCellDef="let employee; let i = index" 
+                  class="data-cell">
+                <div class="action-buttons" role="group" [attr.aria-label]="'Actions for ' + employee.firstName + ' ' + employee.lastName">
+                  
+                  <button mat-mini-fab 
+                          color="primary"
+                          matTooltip="View Details"
+                          matTooltipPosition="above"
+                          (click)="viewEmployeeDetails(employee.id)"
+                          [attr.aria-label]="'View details for ' + employee.firstName + ' ' + employee.lastName"
+                          class="action-btn view-btn">
+                    <mat-icon aria-hidden="true">visibility</mat-icon>
+                  </button>
+
+                  <button mat-mini-fab 
+                          color="accent"
+                          matTooltip="Edit Employee"
+                          matTooltipPosition="above"
+                          (click)="updateEmployeeDetails(employee.id)"
+                          [attr.aria-label]="'Edit ' + employee.firstName + ' ' + employee.lastName"
+                          class="action-btn edit-btn">
+                    <mat-icon aria-hidden="true">edit</mat-icon>
+                  </button>
+
+                  <button mat-mini-fab 
+                          color="warn"
+                          matTooltip="Delete Employee"
+                          matTooltipPosition="above"
+                          (click)="deleteEmployee(employee.id)"
+                          [attr.aria-label]="'Delete ' + employee.firstName + ' ' + employee.lastName"
+                          class="action-btn delete-btn">
+                    <mat-icon aria-hidden="true">delete</mat-icon>
+                  </button>
+                  
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Table Header and Rows -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row 
+                *matRowDef="let employee; columns: displayedColumns; let i = index"
+                class="employee-row"
+                [attr.aria-rowindex]="i + 2"
+                tabindex="0"
+                (keydown.enter)="viewEmployeeDetails(employee.id)"
+                (keydown.space)="viewEmployeeDetails(employee.id)"
+                [attr.aria-label]="'Employee: ' + employee.firstName + ' ' + employee.lastName">
+            </tr>
+          </table>
+
+          <!-- Paginator -->
+          <mat-paginator
+            #paginator
+            [pageSizeOptions]="[5, 10, 25, 50]"
+            aria-label="Select page of employees">
+          </mat-paginator>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </main>
+</section>
+

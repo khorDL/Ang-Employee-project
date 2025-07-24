@@ -22,7 +22,7 @@ export class EmployeeService {
     return this.httpClient.get<Employee>(`${this.baseUrl}/${id}`);
   }
 
-  updateEmployee(id: number, employee: Employee): Observable<Object> {
+  updateEmployeeDetails(id: number, employee: Employee): Observable<Object> {
     return this.httpClient.put(`${this.baseUrl}/${id}`, employee);
   }
 

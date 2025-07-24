@@ -1,21 +1,64 @@
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="employees" routerLinkActive="active">Employees List</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="create-employee" routerLinkActive="active">Add Employees</a>
-      </li>
-    </ul>
-</nav>
+<!-- Main Application Header -->
+<header role="banner" class="app-header">
+  <mat-toolbar color="primary" class="app-toolbar">
+    <mat-toolbar-row>
+      <!-- Brand Section -->
+      <section class="brand-section">
+        <mat-icon class="brand-icon" aria-label="Company logo">business</mat-icon>
+        <h1 class="app-title">Employee Management System</h1>
+      </section>
 
-<h1 class="text-center">{{ title }}</h1>
-<div class="container">
-  <router-outlet></router-outlet>
-</div>
+      <!-- Spacer for layout -->
+      <span class="toolbar-spacer"></span>
 
-<footer class = "footer">
-  <div class="container">
-    <span>All Rights Reserved 2025 &copy; C3reless</span>
+      <!-- Navigation Section -->
+      <nav class="primary-navigation" role="navigation" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a mat-button 
+               class="nav-link" 
+               routerLink="/employees" 
+               routerLinkActive="active-nav"
+               [routerLinkActiveOptions]="{exact: false}"
+               aria-label="View all employees">
+              <mat-icon aria-hidden="true">people</mat-icon>
+              <span class="nav-text">Employees</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a mat-button 
+               class="nav-link" 
+               routerLink="/create-employee" 
+               routerLinkActive="active-nav"
+               [routerLinkActiveOptions]="{exact: true}"
+               aria-label="Add new employee">
+              <mat-icon aria-hidden="true">person_add</mat-icon>
+              <span class="nav-text">Add Employee</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</header>
+
+<!-- Main Content Area -->
+<main role="main" class="main-content" id="main-content">
+  <div class="content-container">
+    <!-- Dynamic content from routing -->
+    <router-outlet></router-outlet>
+  </div>
+</main>
+
+<!-- Application Footer -->
+<footer role="contentinfo" class="app-footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <mat-icon class="footer-icon" aria-hidden="true">copyright</mat-icon>
+      <p class="footer-text">
+        <time [attr.datetime]="currentYear">{{ currentYear }}</time> 
+        Employee Management System. All Rights Reserved by C3reless
+      </p>
+    </div>
   </div>
 </footer>

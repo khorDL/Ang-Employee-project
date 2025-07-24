@@ -1,0 +1,8 @@
+/* Only component-specific overrides */
+.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-thick {
+  color: #f5576c;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-label {
+  color: #f5576c !important;
+}

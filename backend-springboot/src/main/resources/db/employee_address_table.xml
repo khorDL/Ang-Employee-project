@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+    <changeSet id="employee_address_table" author="C3reless">
+        <createTable tableName="employee_address">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_employee_detail_employee"
+                             references="employee(id)"/>
+            </column>
+            <column name="address_type" type="VARCHAR(50)"/>
+            <column name="street_address" type="VARCHAR(255)"/>
+            <column name="city" type="VARCHAR(100)"/>
+            <column name="state" type="VARCHAR(100)"/>
+            <column name="postal_code" type="VARCHAR(20)"/>
+            <column name="country" type="VARCHAR(100)"/>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="employee_address"/>
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>

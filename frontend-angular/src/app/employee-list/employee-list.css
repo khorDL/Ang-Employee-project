@@ -1,0 +1,612 @@
+/* Import shared styles */
+@import '../shared/shared-components.css';
+
+/* === EMPLOYEE LIST SPECIFIC STYLES === */
+
+/* Search Section */
+.search-card {
+  margin-bottom: 1rem;
+}
+
+.search-card .card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.search-field {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.search-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.search-info {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-left: auto;
+}
+
+.clear-search-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.clear-search-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.clear-search-btn:disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* List Container */
+.list-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.list-header {
+  margin-bottom: 24px;
+}
+
+.list-header-card {
+  border-radius: 16px !important;
+  color: white;
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3) !important;
+  animation: slideDown 0.4s ease-out;
+}
+
+.list-header-card.employee-list-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.list-header-card .mat-mdc-card-content {
+  padding: 32px !important;
+}
+
+.list-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-title-section {
+  flex: 1;
+}
+
+.list-page-title {
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.list-title-icon {
+  font-size: 2.8rem !important;
+  animation: pulse 2s infinite;
+}
+
+.list-page-subtitle {
+  font-size: 1.2rem !important;
+  margin: 12px 0 0 0 !important;
+  opacity: 0.9;
+  color: white !important;
+}
+
+.list-action-section {
+  display: flex;
+  align-items: center;
+}
+
+.list-fab-button {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+  box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4) !important;
+  transition: all 0.3s ease !important;
+}
+
+.list-fab-button:hover {
+  transform: scale(1.1) translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(240, 147, 251, 0.6) !important;
+}
+
+/* Loading & Empty States */
+.loading-container,
+.empty-state-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.loading-card,
+.empty-state-card {
+  border-radius: 16px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+  text-align: center;
+}
+
+.loading-card {
+  min-width: 400px;
+}
+
+.empty-state-card {
+  min-width: 500px;
+}
+
+.loading-content {
+  padding: 40px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.empty-state-content {
+  padding: 60px 40px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.loading-title {
+  font-size: 1.4rem !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  margin: 0 !important;
+}
+
+.loading-subtitle {
+  font-size: 1rem !important;
+  color: #6c757d !important;
+  margin: 0 !important;
+}
+
+.empty-state-icon-container {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.empty-state-icon {
+  font-size: 4rem !important;
+  color: #adb5bd !important;
+}
+
+.empty-state-title {
+  font-size: 1.8rem !important;
+  font-weight: 600 !important;
+  color: #495057 !important;
+  margin: 0 !important;
+}
+
+.empty-state-message {
+  font-size: 1.1rem !important;
+  color: #6c757d !important;
+  margin: 0 !important;
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+.empty-state-actions {
+  margin-top: 16px;
+}
+
+.empty-state-btn {
+  min-width: 220px !important;
+  min-height: 56px !important;
+  border-radius: 28px !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+}
+
+/* Table Styles */
+.table-card {
+  border-radius: 16px !important;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
+  overflow: hidden;
+  animation: slideUp 0.8s ease-out;
+}
+
+.table-card .mat-mdc-card-content {
+  padding: 0 !important;
+}
+
+.table-card .mat-mdc-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 16px !important;
+  border-bottom: 2px solid #e9ecef;
+  background: white !important;
+}
+
+.table-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.table-title-section {
+  flex: 1;
+}
+
+.table-title {
+  font-size: 1.6rem !important;
+  font-weight: 700 !important;
+  color: #333 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin: 0 !important;
+}
+
+.table-title-icon {
+  color: #667eea !important;
+  font-size: 1.8rem !important;
+}
+
+.employee-stats {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-top: 8px !important;
+  color: #6c757d !important;
+}
+
+.employee-count-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  padding: 4px 12px !important;
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+}
+
+.employee-count-text {
+  font-size: 1rem !important;
+  color: #6c757d !important;
+}
+
+.table-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.refresh-btn {
+  border: 2px solid #667eea !important;
+  color: #667eea !important;
+  border-radius: 24px !important;
+  padding: 8px 20px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.refresh-btn:hover {
+  background: #667eea !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Table Content */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.employee-table {
+  width: 100% !important;
+  background: white !important;
+}
+
+.employee-table .mat-mdc-header-cell {
+  background: #f8f9fa !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  color: #495057 !important;
+  padding: 16px 12px !important;
+  border-bottom: 2px solid #dee2e6 !important;
+}
+
+.employee-table .mat-mdc-cell {
+  padding: 16px 12px !important;
+  border-bottom: 1px solid #f1f3f4 !important;
+  font-size: 0.95rem !important;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.column-icon {
+  font-size: 1.2rem !important;
+  color: #6c757d !important;
+}
+
+.header-text {
+  font-weight: 700 !important;
+}
+
+.cell-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-container {
+  display: flex;
+  align-items: center;
+}
+
+.employee-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.employee-name {
+  font-weight: 600 !important;
+  color: #333 !important;
+}
+
+/* Employee List specific email link styling */
+.email-link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-decoration: none !important;
+  color: #667eea !important;
+  transition: all 0.3s ease !important;
+}
+
+.email-link:hover {
+  color: #764ba2 !important;
+  transform: translateX(4px);
+}
+
+.email-icon {
+  font-size: 1.1rem !important;
+}
+
+.email-text {
+  font-weight: 500 !important;
+}
+
+/* Action Buttons - Using header gradient colors */
+.action-buttons {
+  display: flex !important;
+  gap: 8px !important;
+  justify-content: center;
+}
+
+.action-btn {
+  transition: all 0.3s ease !important;
+  border: none !important;
+}
+
+.action-btn:hover {
+  transform: scale(1.1) translateY(-2px) !important;
+}
+
+/* View Button - Details Header Gradient */
+.view-btn {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.3) !important;
+}
+
+.view-btn:hover {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+  box-shadow: 0 6px 16px rgba(79, 172, 254, 0.4) !important;
+}
+
+/* Edit Button - Update Header Gradient */
+.edit-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(240, 147, 251, 0.3) !important;
+}
+
+.edit-btn:hover {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+  box-shadow: 0 6px 16px rgba(240, 147, 251, 0.4) !important;
+}
+
+/* Delete Button - Keep red gradient for danger */
+.delete-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3) !important;
+}
+
+.delete-btn:hover {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%) !important;
+  box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4) !important;
+}
+
+/* Table Rows */
+.employee-row {
+  transition: all 0.3s ease !important;
+  cursor: pointer;
+}
+
+.employee-row:hover {
+  background: #f8f9fa !important;
+  box-shadow: inset 4px 0 0 #667eea !important;
+}
+
+.employee-row:focus {
+  background: #e8eaf6 !important;
+  outline: 2px solid #667eea !important;
+}
+
+/* Paginator styling to exactly match table header cells - using ::ng-deep to penetrate component encapsulation */
+::ng-deep .mat-paginator {
+  background: #f8f9fa !important;
+  color: #495057 !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  border-top: 2px solid #dee2e6 !important;
+  padding: 16px 12px !important;
+}
+
+/* All text elements in paginator */
+::ng-deep .mat-paginator .mat-mdc-paginator-range-label {
+  color: #495057 !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+}
+
+::ng-deep .mat-paginator .mat-mdc-select-value-text {
+  color: #495057 !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+}
+
+::ng-deep .mat-paginator .mat-mdc-select-arrow {
+  color: #495057 !important;
+}
+
+/* Navigation buttons */
+::ng-deep .mat-paginator .mat-mdc-icon-button {
+  color: #495057 !important;
+}
+
+::ng-deep .mat-paginator .mat-mdc-icon-button:hover {
+  background: rgba(102, 126, 234, 0.1) !important;
+  color: #667eea !important;
+}
+
+::ng-deep .mat-paginator .mat-mdc-icon-button[disabled] {
+  color: #adb5bd !important;
+}
+
+/* Page size selector */
+::ng-deep .mat-paginator .mat-mdc-form-field .mat-mdc-text-field-wrapper {
+  background: transparent !important;
+}
+
+::ng-deep .mat-paginator .mat-mdc-form-field .mat-mdc-select-value {
+  color: #495057 !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+}
+
+/* Remove any dark theme overrides */
+::ng-deep .mat-paginator * {
+  background: inherit !important;
+}
+
+/* === RESPONSIVE DESIGN - EMPLOYEE LIST SPECIFIC === */
+@media (max-width: 768px) {
+  .list-container {
+    padding: 12px;
+  }
+  
+  .list-header-content {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .list-page-title {
+    font-size: 2rem !important;
+    justify-content: center;
+  }
+  
+  .table-header-content {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    padding: 20px !important;
+  }
+  
+  .action-buttons {
+    flex-direction: column !important;
+    gap: 6px !important;
+  }
+  
+  .employee-table .mat-mdc-cell {
+    padding: 14px 12px !important;
+    font-size: 0.95rem !important;
+  }
+  
+  .employee-table .mat-mdc-header-cell {
+    padding: 16px 12px !important;
+    font-size: 1rem !important;
+  }
+
+  .empty-state-card {
+    min-width: 300px !important;
+  }
+
+  .empty-state-content {
+    padding: 40px 20px !important;
+  }
+
+  .loading-card {
+    min-width: 300px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .list-page-title {
+    font-size: 1.6rem !important;
+  }
+  
+  .cell-content {
+    flex-direction: column !important;
+    gap: 4px !important;
+    text-align: center;
+  }
+  
+  .column-icon {
+    display: none !important;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .employee-table {
+    min-width: 600px;
+  }
+}

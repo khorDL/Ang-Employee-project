@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EmployeeList } from './employee-list/employee-list';
-import { CreateEmployee } from './create-employee/create-employee';
-import { UpdateEmployee } from './update-employee/update-employee';
-import { EmployeeDetails } from './employee-details/employee-details';
+import { EmployeeListComponent } from './employee-list/employee-list';
+import { CreateEmployeeComponent } from './create-employee/create-employee';
+import { UpdateEmployeeComponent } from './update-employee/update-employee';
+import { EmployeeDetailsComponent } from './employee-details/employee-details';
+import { Login } from './login/login';
+import { Register } from './register/register';
 
-const routes: Routes = [
-  {path: 'employees', component: EmployeeList},
-  {path: 'create-employee', component: CreateEmployee},
-  {path: 'update-employee/:id', component: UpdateEmployee},
-  {path: 'employee-details/:id', component: EmployeeDetails},
-  {path: '', redirectTo: 'employees', pathMatch: 'full'},
+export const routes: Routes = [
+   { path: 'login', component: Login },
+  { path: 'register', component: Register },
+  {path: 'employees', component: EmployeeListComponent},
+  {path: 'create-employee', component: CreateEmployeeComponent},
+  {path: 'update-employee/:id', component: UpdateEmployeeComponent},
+  {path: 'employee-details/:id', component: EmployeeDetailsComponent},
+  { path: '', redirectTo: '/login', pathMatch: 'full' },  // ← Redirect to login
+  { path: '**', redirectTo: '/login' }  // ← Wildcard route
 ];
 
 @NgModule({

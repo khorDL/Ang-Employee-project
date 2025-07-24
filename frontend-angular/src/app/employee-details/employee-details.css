@@ -1,0 +1,20 @@
+/* On.email-value {
+  color: #4facfe !important;
+  text-decoration: none;
+}
+
+.btn-primary.edit-btn {
+  background: linear-gradient(135deg, #ec4899 0%, #be185d 100%) !important;
+}nent-specific overrides */
+.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-thick {
+  color: #4facfe;
+}
+
+.email-value {
+  color: #4facfe !important;
+  text-decoration: none;
+}
+
+.btn-primary.edit-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+}

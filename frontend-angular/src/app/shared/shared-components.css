@@ -1,0 +1,313 @@
+/* === SHARED CONTAINER STYLES === */
+.page-container {
+  padding: 20px;
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100% !important;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* === SHARED CARD STYLES === */
+.form-card {
+  background: white !important;
+  border: none;
+  min-width: 500px;
+  max-width: 800px;
+  animation: slideIn 0.4s ease-out;
+  width: 100%;
+  min-height: 500px;
+  margin: 0 auto;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
+  border-radius: 16px !important;
+}
+
+.card-header {
+  color: white !important;
+  border-radius: 16px 16px 0 0;
+  padding: 24px;
+}
+
+.card-header.create-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.card-header.update-header {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+}
+
+.card-header.details-header {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+}
+
+.avatar-icon {
+  background: rgba(255,255,255,0.2) !important;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-icon mat-icon {
+  color: white !important;
+  font-size: 24px !important;
+}
+
+.card-title {
+  color: white !important;
+  font-size: 1.8rem !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+}
+
+mat-card-subtitle {
+  color: rgba(255,255,255,0.8) !important;
+  font-size: 1rem !important;
+}
+
+.card-content {
+  padding: 40px !important;
+  background: white !important;
+}
+
+/* === SHARED FORM STYLES === */
+.employee-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-field {
+  width: 100% !important;
+}
+
+.form-field .mat-mdc-form-field {
+  width: 100% !important;
+  --mdc-outlined-text-field-container-height: 56px;
+}
+
+.form-field input {
+  font-size: 16px !important;
+  padding: 12px !important;
+  height: 48px !important;
+  color: #333 !important;
+  background: white !important;
+}
+
+.form-field label {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  color: #333 !important;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  width: 100%;
+}
+
+/* === SHARED BUTTON STYLES === */
+.card-actions {
+  padding: 0 32px 32px !important;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  background: white !important;
+}
+
+.btn-primary {
+  color: white !important;
+  padding: 16px 48px !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  min-width: 200px !important;
+  min-height: 56px !important;
+  border-radius: 28px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  transition: all 0.3s ease !important;
+  border: none !important;
+}
+
+.btn-primary.create-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.btn-primary.update-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+}
+
+.btn-primary.details-btn {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25) !important;
+}
+
+.btn-secondary {
+  color: #6c757d !important;
+  background: white !important;
+  padding: 16px 32px !important;
+  border: 2px solid #dee2e6 !important;
+  border-radius: 28px !important;
+  font-size: 1.1rem !important;
+  min-width: 160px !important;
+  min-height: 56px !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-secondary:hover {
+  background-color: #f8f9fa !important;
+  border-color: #adb5bd !important;
+  transform: translateY(-2px) !important;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%) !important;
+  color: white !important;
+  padding: 16px 32px !important;
+  font-size: 1.1rem !important;
+  min-width: 160px !important;
+  min-height: 56px !important;
+  border-radius: 28px !important;
+  transition: all 0.3s ease !important;
+  border: none !important;
+}
+
+/* === SHARED DETAILS STYLES === */
+.info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background: #f8f9fa !important;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.info-row:hover {
+  background: #e9ecef !important;
+  transform: translateX(5px);
+}
+
+.info-icon {
+  margin-right: 16px;
+  color: #667eea !important;
+  min-width: 40px;
+}
+
+.info-content {
+  flex: 1;
+}
+
+.info-label {
+  font-size: 14px;
+  color: #6c757d !important;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  margin-top: 4px;
+}
+
+/* === SHARED ANIMATIONS === */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* === RESPONSIVE DESIGN - SHARED === */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 10px;
+  }
+  
+  .form-card {
+    min-width: 300px;
+  }
+  
+  .card-content {
+    padding: 20px !important;
+  }
+  
+  .card-actions {
+    padding: 0 20px 20px !important;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger {
+    width: 100%;
+    margin: 4px 0;
+    min-height: 60px !important;
+    font-size: 1.2rem !important;
+  }
+}

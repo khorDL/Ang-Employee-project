@@ -1,4 +1,4 @@
-package com.example.angularEmp.entity;
+package com.example.backendSpringboot.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

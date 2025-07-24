@@ -1,19 +1,156 @@
-<div class="col-md-6 offset-md-3">
-<h3>Update Employee</h3>
-<form (ngSubmit)="onSubmit()">
+<!-- Update Employee Page -->
+<section class="page-container" role="main" aria-labelledby="page-title">
+  
+  <!-- Loading State -->
+  <div class="loading-overlay" *ngIf="isLoading || isSubmitting" aria-live="polite">
+    <mat-spinner diameter="40" [attr.aria-label]="isLoading ? 'Loading employee data' : 'Updating employee'"></mat-spinner>
+    <p class="loading-text">{{ isLoading ? 'Loading employee data...' : 'Updating employee...' }}</p>
+  </div>
+
+  <!-- Main Form Card -->
+  <mat-card class="form-card" role="form">
     
-  <div class="form-group">
-    <label for="name">First Name:</label>
-    <input type="text" class="form-control" id="firstName" [(ngModel)]="employee.firstName" name="firstName">
-  </div>
-  <div class="form-group">
-    <label for="name">Last Name:</label>
-    <input type="text" class="form-control" id="lastName" [(ngModel)]="employee.lastName" name="lastName">
-  </div>
-  <div class="form-group">
-    <label for="name">Email:</label>
-    <input type="text" class="form-control" id="email" [(ngModel)]="employee.email" name="email">
-  </div>
-  <button type="submit" class="btn btn-primary">Create</button>
-</form>
-</div>
+    <!-- Card Header -->
+    <mat-card-header class="card-header update-header">
+      <div mat-card-avatar class="avatar-icon" aria-hidden="true">
+        <mat-icon>edit</mat-icon>
+      </div>
+      <mat-card-title id="page-title" class="card-title">
+        Update Employee
+      </mat-card-title>
+      <mat-card-subtitle class="card-subtitle">
+        Modify employee information
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <!-- Form Content -->
+    <mat-card-content class="card-content">
+      <form [formGroup]="employeeForm" 
+            (ngSubmit)="onSubmit()" 
+            class="employee-form"
+            novalidate
+            autocomplete="on"
+            aria-describedby="form-instructions">
+        
+        <p id="form-instructions" class="form-instructions visually-hidden">
+          Update the employee information. Required fields are marked with an asterisk.
+        </p>
+
+        <!-- First Name Field -->
+        <div class="form-row">
+          <div class="form-group">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>
+                First Name <span aria-label="required" class="required-asterisk">*</span>
+              </mat-label>
+              <input matInput 
+                     formControlName="firstName" 
+                     placeholder="Enter first name"
+                     autocomplete="given-name"
+                     [attr.aria-invalid]="firstNameControl?.invalid && firstNameControl?.touched"
+                     [attr.aria-describedby]="firstNameControl?.invalid && firstNameControl?.touched ? 'firstName-error' : null"
+                     required>
+              <mat-icon matSuffix aria-hidden="true">person</mat-icon>
+              
+              <!-- Error Messages -->
+              <mat-error id="firstName-error" *ngIf="firstNameControl?.hasError('required')">
+                First name is required
+              </mat-error>
+              <mat-error *ngIf="firstNameControl?.hasError('minlength')">
+                First name must be at least 2 characters long
+              </mat-error>
+              <mat-error *ngIf="firstNameControl?.hasError('pattern')">
+                First name can only contain letters and spaces
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Last Name Field -->
+        <div class="form-row">
+          <div class="form-group">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>
+                Last Name <span aria-label="required" class="required-asterisk">*</span>
+              </mat-label>
+              <input matInput 
+                     formControlName="lastName" 
+                     placeholder="Enter last name"
+                     autocomplete="family-name"
+                     [attr.aria-invalid]="lastNameControl?.invalid && lastNameControl?.touched"
+                     [attr.aria-describedby]="lastNameControl?.invalid && lastNameControl?.touched ? 'lastName-error' : null"
+                     required>
+              <mat-icon matSuffix aria-hidden="true">person_outline</mat-icon>
+              
+              <!-- Error Messages -->
+              <mat-error id="lastName-error" *ngIf="lastNameControl?.hasError('required')">
+                Last name is required
+              </mat-error>
+              <mat-error *ngIf="lastNameControl?.hasError('minlength')">
+                Last name must be at least 2 characters long
+              </mat-error>
+              <mat-error *ngIf="lastNameControl?.hasError('pattern')">
+                Last name can only contain letters and spaces
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-row">
+          <div class="form-group">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>
+                Email Address <span aria-label="required" class="required-asterisk">*</span>
+              </mat-label>
+              <input matInput 
+                     formControlName="email" 
+                     placeholder="Enter email address"
+                     type="email"
+                     autocomplete="email"
+                     [attr.aria-invalid]="emailControl?.invalid && emailControl?.touched"
+                     [attr.aria-describedby]="emailControl?.invalid && emailControl?.touched ? 'email-error' : null"
+                     required>
+              <mat-icon matSuffix aria-hidden="true">email</mat-icon>
+              
+              <!-- Error Messages -->
+              <mat-error id="email-error" *ngIf="emailControl?.hasError('required')">
+                Email address is required
+              </mat-error>
+              <mat-error *ngIf="emailControl?.hasError('email')">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="emailControl?.hasError('maxlength')">
+                Email address is too long
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button mat-raised-button 
+                  type="submit" 
+                  class="btn-primary update-btn"
+                  [disabled]="employeeForm.invalid || isSubmitting"
+                  [attr.aria-busy]="isSubmitting">
+            <mat-icon aria-hidden="true">update</mat-icon>
+            <span>{{ isSubmitting ? 'Updating...' : 'Update Employee' }}</span>
+          </button>
+          
+          <button mat-stroked-button 
+                  type="button"
+                  class="btn-secondary"
+                  routerLink="/employees"
+                  [disabled]="isSubmitting"
+                  aria-label="Cancel and return to employee list">
+            <mat-icon aria-hidden="true">cancel</mat-icon>
+            <span>Cancel</span>
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+
+  </mat-card>
+</section>

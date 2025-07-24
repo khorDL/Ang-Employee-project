@@ -1,6 +1,6 @@
-package com.example.angularEmp.repository;
+package com.example.backendSpringboot.repository;
 
-import com.example.angularEmp.entity.Employee;
+import com.example.backendSpringboot.domain.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
